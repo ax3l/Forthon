@@ -28,7 +28,13 @@ env:
     - USE_PIP=ON
     - USE_PIP=OFF
 
-script:
+before_script:
+  # pypy test #################################################################
+  #
+  - if [[ $TRAVIS_PYTHON_VERSION == pypy* ]]; then
+      alias pip="pypy -m pip";
+      pip install git+https://bitbucket.org/pypy/numpy.git@pypy-2.6.0;
+    fi
   # install latest release from pip ###########################################
   # .. or install from source
   #
@@ -39,6 +45,8 @@ script:
     else
       python setup.py install;
     fi
+
+script:
   # Python3 ###################################################################
   #
   - echo "$TRAVIS_PYTHON_VERSION"
