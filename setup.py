@@ -45,7 +45,7 @@ with open('source/version.py','w') as ff:
 # --- Get around a "bug" in disutils on 64 bit systems. When there is no
 # --- extension to be installed, distutils will put the scripts in
 # --- /usr/lib/... instead of /usr/lib64.
-if distutils.sysconfig.get_config_vars()["LIBDEST"].find('lib64') != -1:
+if distutils.sysconfig.get_python_lib(plat_specific=0, standard_lib=1).find('lib64') != -1:
     for scheme in INSTALL_SCHEMES.values():
         scheme['purelib'] = scheme['platlib']
 
